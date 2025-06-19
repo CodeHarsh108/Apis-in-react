@@ -5,22 +5,41 @@ import { useState } from 'react';
 function App() {
   const [data, setData] = useState([]);
 
-  useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/todos/1')
-      .then(response => response.json())
-      .then(json => setData(json))
+  // useEffect(() => {
+  //   fetch('https://jsonplaceholder.typicode.com/todos/1')
+  //     .then(response => response.json())
+  //     .then(json => setData(json))
 
-  }, []);
+  // }, []);
+
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/posts')
+    .then(response => response.json())
+    .then(json => setData(json)) 
+  }, [])
 
   return (
     <div>
       <h1>API's</h1>
-      <p>Title : {data.title}</p>
+      {/* <p>Title : {data.title}</p>
       <p>{data.completed ? 'Completed' : 'Not Completed'}</p>
       <p>User ID: {data.userId}</p>
       <p>ID: {data.id}</p>
       <p>Data fetched at: {new Date().toLocaleTimeString()}</p>
+      <p>Data fetched at: {new Date().toLocaleDateString()}</p> */}
+      <ul>
+  {data.map((post) => (
+    <li key={post.id}>
+      <h3>{post.title}</h3>
+      <p>{post.body}</p>
+      <p>Post ID: {post.id}</p>
+      <p>User ID: {post.userId}</p>
+      <p>Data fetched at: {new Date().toLocaleTimeString()}</p>
       <p>Data fetched at: {new Date().toLocaleDateString()}</p>
+    </li>
+  ))}
+</ul>
+
     </div> 
   )
 }
