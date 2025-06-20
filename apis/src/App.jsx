@@ -17,6 +17,7 @@ function App() {
   // }, []);
 
   useEffect(() => {
+  setLoading(true); // Set loading to true before fetching
     fetch('https://jsonplaceholder.typicode.com/posts')
     .then(response => response.json())
     .then(json => setData(json)) 
