@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 function App() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true); // Changed to true to show loader on first render
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     setLoading(true); // Set loading to true before fetching
