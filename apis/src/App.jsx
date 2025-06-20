@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 function App() {
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false); // Initially not loading
   if (loading) {
     return <div>Loading...</div>;
   }
