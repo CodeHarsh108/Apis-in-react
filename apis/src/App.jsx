@@ -14,10 +14,13 @@ function App() {
         setData(json);
         setLoading(false); // Set loading to false after fetching
       })
-      .catch(error => {
-        console.error('Fetch error:', error); // Handle any errors gracefully
-        setLoading(false);
-      });
+      .catch(
+        (error) =>{
+          console.error('Error fetching data:', error);
+          setError(error); // Set error state if fetch fails
+          setLoading(false); // Set loading to false even if there's an error
+        }
+      );
   }, []);
 
   if (loading) {
