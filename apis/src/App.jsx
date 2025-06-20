@@ -26,6 +26,9 @@ function App() {
   if (loading) {
     return <div>Loading...</div>; // Keep your return logic the same
   }
+  if (error) {
+    return <div>Error: {error.message}</div>; // Display error message if there's an error
+  }
 
   return (
     <div>
