@@ -4,6 +4,10 @@ import { useState } from 'react';
 
 function App() {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   // useEffect(() => {
   //   fetch('https://jsonplaceholder.typicode.com/todos/1')
