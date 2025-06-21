@@ -4,17 +4,17 @@ import axios from 'axios';
 
 function App() {
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true); // Changed to true to show loader on first render
+  const [loading, setLoading] = useState(true); 
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    setLoading(true); // Set loading to true before fetching
-    fetch('https://jsonplaceholder.typicode.com/posts')
-      .then(response => response.json())
-      .then(json => {
-        setData(json);
+    setLoading(true); 
+    
+    axios.get('https://jsonplaceholder.typicode.com/posts')
+      .then(response => {
+        setData(response.data); // Set the fetched data to state
         setLoading(false); // Set loading to false after fetching
-      })
+  })
       .catch(
         (error) =>{
           console.error('Error fetching data:', error);
