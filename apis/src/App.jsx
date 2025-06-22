@@ -2,6 +2,7 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
+
 function App() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true); 
@@ -10,11 +11,20 @@ function App() {
   useEffect(() => {
     setLoading(true); 
     
-    axios.get('https://jsonplaceholder.typicode.com/posts')
-      .then(response => {
-        setData(response.data); // Set the fetched data to state
-        setLoading(false); // Set loading to false after fetching
-  })
+    axios.all([
+      axios.get('https://jsonplaceholder.typicode.com/posts'),
+      axios.get('https://jsonplaceholder.typicode.com/users')
+    ])
+      .then(axios.spread((postsResponse, usersResponse) => {
+          const posts = postsResponse.data;
+          const users = usersResponse.data;
+          const postsWithUser = posts.map(post => ({
+            ...post,
+            user: users.find(user => user.id === post.userId)
+          }));
+          setData(postsWithUser); // Set the combined data
+          setLoading(false); // Set loading to false after data is fetched
+        })      )
       .catch(
         (error) =>{
           console.error('Error fetching data:', error);
@@ -43,6 +53,16 @@ function App() {
             <p>User ID: {post.userId}</p>
             <p>Data fetched at: {new Date().toLocaleTimeString()}</p>
             <p>Data fetched at: {new Date().toLocaleDateString()}</p>
+          </li>
+        ))}
+      </ul>
+      <ul>
+        {data.map((post) => (
+          <li key={post.user.id}>
+            <h3>{post.user.name}</h3>
+            <p>Email: {post.user.email}</p>
+            <p>Phone: {post.user.phone}</p>
+            <p>Website: {post.user.website}</p>
           </li>
         ))}
       </ul>
