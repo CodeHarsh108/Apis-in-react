@@ -3,7 +3,7 @@ import './App.css';
 function Appp() {
     return(
         <div>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <button type='submit'>Add Post</button>
             </form>
         </div>
